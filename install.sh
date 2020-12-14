@@ -31,6 +31,7 @@ apk add php php-cli apache2 php-apache2 phpmyadmin mariadb mariadb-client
 
 #allow apache user to read phpmyadmin config
 chown root:apache /etc/phpmyadmin/config.inc.php
+
 #allow allow empty password
 sed -i -r 's/(.*AllowNoPassword.*=).*/\1 true;/' /etc/phpmyadmin/config.inc.php
 
@@ -51,4 +52,8 @@ echo -e "Done!"
 echo -e "LAMP is ready!\n\n"
 echo -e "user: root\npassword: empty\nmariadb user: root\npassword: empty\n"
 
-
+#Enable web server dir .htaaccess
+echo -e "
+<Directory /var/www/localhost/htdocs/>
+\tAllowOverride All
+</Directory>" >> /etc/apache2/conf.d/default.conf
