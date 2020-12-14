@@ -1,4 +1,8 @@
 #!/bin/sh
+#enable grep to highlight matches
+echo alias grep=\'grep --color=auto\' >> /etc/profile
+#apply changes
+source /etc/profile
 
 # apk update && apk upgrade
 apk update && apk upgrade
@@ -40,6 +44,11 @@ mysqladmin --user=root password ""
 
 
 #enable apache2 mod_rewrite.so module
-sed -i -r 's/#(.*\d\/mod_rewrite.*)/\1/' /etc/apache2/httpd.conf
+sed -i -r 's/#(.*mod_rewrite.*)/\1/' /etc/apache2/httpd.conf
+service apache2 restart
+
+echo -e "Done!"
+echo -e "LAMP is ready!\n\n"
+echo -e "user: root\npassword: empty\nmariadb user: root\npassword: empty\n"
 
 
